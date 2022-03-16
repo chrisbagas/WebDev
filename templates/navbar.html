@@ -1,0 +1,56 @@
+{% load static %}
+<nav class="fixed z-20 left-0 right-0 shadow-xl" style="background-color: #2E3746; color:white">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between">
+      <div class="flex space-x-3">
+        <div class="hidden md:flex items-center space-x-1">
+          <a href="/"class="items-center py-5 px-3">
+            Home
+          </a>
+          <a href="/blog"class="items-center py-5 px-3">
+            Blog
+          </a>
+        </div>
+      </div>
+      <div>
+        <a href="/"class="flex items-center py-5 px-3 space-x-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l7-7 7 7M5 19l7-7 7 7" />
+          </svg>
+          <div class="items-center text-2xl font-bold">
+            BAGAS
+          </div>
+        </a>
+      </div>
+      {% if request.user.is_authenticated %}
+      <div class="hidden md:flex items-center space-x-1">
+        <a href="/account/logout_acc"class="py-5 px-3 hover:text-grey-300">Logout</a>
+      </div>
+      {% else %}
+      <div class="hidden md:flex items-center space-x-1">
+        <a href="/account/login_acc"class="py-5 px-3 hover:text-grey-300">Login</a>
+        <a href="/account/signup_acc"class="py-5 px-3 hover:text-grey-300">Sign Up</a>
+      </div>
+      {% endif %}
+      <div class="md:hidden flex items-center">
+        <button class="mobile-button">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mobile hidden md:hidden">
+    <a href="/"class="block py-2 px-6 text-sm">Home</a>
+    <a href="/blog"class="block py-2 px-6 text-sm">Blog</a>
+  </div>
+</nav>
+<script>
+  const btn = document.querySelector('.mobile-button');
+  const menu = document.querySelector('.mobile');
+
+  btn.addEventListener('click',()=>{
+    menu.classList.toggle("hidden")
+  });
+</script>

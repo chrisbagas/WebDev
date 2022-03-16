@@ -1,0 +1,25 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href = "{% static '/css/style.css' %}">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    
+    {% block meta %} {% endblock meta %}
+
+  </head>
+  <body>
+    {% include 'navbar.html' %}
+    {% block content %} {% endblock content %}
+    {% include 'footer.html' %}
+  </body>
+</html>
