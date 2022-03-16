@@ -19,7 +19,7 @@ def signupPage(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, 'Akun telah dibuat dengan username ' + username + ". Silakan login.")
-            return redirect('login_acc')
+            return redirect('login')
     context = {'form': form}
     return render(request, 'signup.html', context)
 
