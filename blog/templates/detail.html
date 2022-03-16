@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href = "{% static '/css/style.css' %}">
+{% block meta %}
+    <title>Blogs</title>
+{% endblock meta %}
+{% block content %}
+<div class="flex-none">
+    {% if blog.thumbnail %}
+    <img class="relative w-full h-screen box-border object-cover" src="{{ blog.thumbnail.url }}" alt="">
+    {% endif %}
+    <div class="absolute bottom-0 pb-8 md:max-w-3xl z-10">
+        <div class="w-full pl-10 mr-10 text-left box-border">
+            <div class="pb-3 pl-6 rounded-l-xl rounded-r-xl md:rounded-r-xl shadow-2xl" style="background-color: #2E3746; color:white">
+                <h1 class="m-auto pt-4 pb-1 sm:pb-2 text-left break-words text-4xl sm:text-5xl">
+                    {{ blog.title }}
+                </h1>
+                <small class="m-auto pt-3 pl-1 pr-1 opacity-60 text-xs sm:text-sm">
+                    By {{ blog.creator }} | Posted on {{ blog.added }}
+                </small>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="m-auto text-center pb-12 pt-12">
+    <div class="max-w-7xl m-auto pb-10 pt-10 px-8 text-left text-base sm:text-xl">
+        {{ blog.body|safe }}
+    </div>
+    <div class="flex-col max-w-7xl text-left text-base px-8 m-auto space-y-4">
+        <div class="text-3xl">
+        Comments...
+        </div>
+        {% if request.user.is_authenticated %}
+        <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
+            <a href="{% url 'blog:add_comment' blog.id%}">
+                Add Comment
+            </a>
+        </button>
+        {% endif %}
+        {% if not comment %}
+        <div class="pl-4 text-xl">
+            No Comments
+        </div>
+        {% else %}
+            {% for c in comment %}
+                <div class="w-full bg-black h-0.5 opacity-50"></div>
+                <div class="flex justify-between">
+                    <div class="pl-4 text-2xl px-3">
+                        {{c.title}}
+                    </div>
+                    
+                    {% if request.user.is_authenticated %}
+                    {% if request.user.id == c.author.id %}
+                    <div class="flex space-x-3">
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold px-4 rounded-full">
+                            <a href="{% url 'blog:edit_comment' c.id%}">
+                                Edit
+                            </a>
+                        </button>
+                        <button class="bg-green-500 hover:bg-green-700 text-white font-bold px-4 rounded-full">
+                            <a href="{% url 'blog:delete_comment' c.id%}">
+                                Delete
+                            </a>
+                        </button>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                </div>
+                <div class="pl-4 text-md">
+                    {{c.author}} | {{c.added}}
+                </div>
+                <div class="pl-8 text-lg px-3">
+                    {{c.body}}
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock content %}

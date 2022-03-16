@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href = "{% static '/css/style.css' %}">
+{% block meta %}
+    
+    <title>Blogs</title>
+{% endblock meta %}
+{% block content %}
+<div class="h-3/5 content-center flex justify-center items-center" style="background-color:#2E3746;color:white">
+    <div>
+        <!-- welcome section -->
+        <div class="text-center text-8xl mx-auto">
+            MY BLOG
+        </div>
+    </div>
+</div>
+<div class="flex flex-col items-center min-h-screen py-28">
+    <div class="grid grid-cols-1 gap-16 max-w-7xl px-5 md:px-0 md:grid-cols-2 xl:grid-cols-3">
+        {% for post in blog %}
+        <div class="flex flex-col justify-start items-start w-full h-full my-2 max-w-sm shadow-lg border rounded-lg">
+            <div class="aspect-w-16 aspect-h-9 w-full">
+                {% if post.thumbnail %}
+                    <img src="{{post.thumbnail.url}}" class="rounded-t-lg w-full object-cover" alt="">
+                {% else %}
+                    <img src="{% static '/image/404.png' %} " class="rounded-t-lg w-full object-cover" alt="">
+                {% endif%}
+            </div>
+            <a href="{% url 'blog:detail' post.id%}" style="text-decoration:none;">
+                <div class="py-4 px-6 h-full w-full">
+                    <p class="text-sm text-blue-dark font-medium">{{post.creator}} | {{post.added}}</p>
+                    <h1 class="text-lg font-bold text-blue-darker">{{post.title}}</h1>
+                    <p class="font-light mb-2.5"></p>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
